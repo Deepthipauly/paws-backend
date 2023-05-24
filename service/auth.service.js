@@ -5,9 +5,6 @@ const { isUsername } = require("../helper/validator");
 const { TokenModel, TOKEN_STATUS } = require("../models/token.model");
 const jwt = require("jsonwebtoken");
 
-
-
-
 const register = async (registerData) => {
   const { username, password } = registerData;
 
@@ -62,11 +59,11 @@ const login = async (loginData) => {
   //token generate when login
 
   const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_KEY);
-  const storedTokenDetails = await TokenModel.findOneAndUpdate(
 
+  const storedTokenDetails = await TokenModel.findOneAndUpdate(
     // mongoose.types.objectId used to make user._id to mongoose Id
 
-    { user: new mongoose.Types.ObjectId(user._id) },
+    { user: new mongoose.Types.ObjectId(user._id) }, // filter for findOneandUpdate
     {
       token,
       status: TOKEN_STATUS.ACTIVE,
@@ -87,4 +84,25 @@ const login = async (loginData) => {
   };
 };
 
-module.exports = { register, login };
+const logout = async (userId) => {
+  const isTokenExist = await TokenModel.countDocuments({
+    user: new mongoose.Types.ObjectId(userId),
+    status: TOKEN_STATUS.ACTIVE,
+  });
+
+  const storedTokenDetails = await TokenModel.findOneAndUpdate(
+    { user: new mongoose.Types.ObjectId(userId) },
+    {
+      status: TOKEN_STATUS.DELETED,
+      user: new mongoose.Types.ObjectId(userId),
+    },
+    { upsert: true, new: true, setDefaultsOnInsert: true }
+  );
+
+  if (!isTokenExist) throw new Error("Jwt Token Expired.Pls login now");
+
+  console.log("storedTokenDetails", storedTokenDetails);
+  return true;
+};
+
+module.exports = { register, login, logout };

@@ -15,6 +15,7 @@ app.use(cors());
 // admin route
 
 app.use("/auth",authRouter);
+
 app.use("/admin",adminRouter);
 
 app.get("/view_category");
@@ -26,18 +27,6 @@ app.post("edit_breed");
 app.delete("/delete_breed");
 app.post("/delete_review");
 app.delete("/delete_user");
-app.post("/logout");
-
-
-
-
-
-
-
-
-
-
-
 
 
 //port setting
@@ -53,9 +42,7 @@ const server = app.listen(process.env.PORT, () => {
 process.on("unhandledRejection",(err)=>{
     console.log("unhandledRejection");
     console.log(err,err.message,err.stack);
-    server.close(()=>{
-      console.log("Server shutting down");
-      process.exit(1);
-    })
+    console.log("Server shutting down");
+    process.exit(1);
   });
   

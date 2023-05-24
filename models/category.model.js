@@ -23,7 +23,7 @@ const categorySchema = new Schema({
     required: true,
   },
 
-  category: {
+  categoryType: {
     type: String,
     required: true,
     enum: Object.values(CATEGORY_TYPE),
