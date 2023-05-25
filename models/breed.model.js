@@ -26,7 +26,9 @@ const breedSchema = new Schema({
     ref: "category",
     required: true,
   },
+  
   breedImages: [breedImageSchema],
+
   status: {
     type: String,
     default: BREED_STATUS.ACTIVE,

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { BreedModel, BREED_STATUS } = require("../models/breed.model");
 const { UserModel, USER_STATUS } = require("../models/user.model");
+const { ReviewModel,REVIEW_STATUS} =require("../models/review.model")
 
 const addBreed = async (breedData) => {
   const { name, description, categoryId, breedImages } = breedData;
@@ -78,11 +79,23 @@ const deletedUser = async (userId) => {
 
 
 
-const deletedReviews = async (deletedReviews) => {
+const deletedReviews = async (reviewId) => {
+
+  if(!reviewId) throw new Error ("reviewId is required")
 
 
+  const deletedReviewData = await ReviewModel.findByIdAndUpdate(
+    reviewId,
+    { status: REVIEW_STATUS.DELETED },
+    { new: true }
+  );
+
+  if (deletedReviewData.status !== REVIEW_STATUS.DELETED)
+    throw new Error("review is not deleted");
+  return deletedReviewData;
 
 };
 
 
-module.exports ={addBreed,editBreed,deleteBreed,deletedUser}
+module.exports ={addBreed,editBreed,deleteBreed,deletedUser,deletedReviews}
+

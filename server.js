@@ -19,20 +19,16 @@ app.use("/auth",authRouter);
 app.use("/admin",adminRouter);
 
 app.get("/view_category");
+
 app.get("/view_breed");
 
 app.post("/add_reviews");
 
 app.get("view_reviews");
 
-app.post("/add_breed");
 
-app.post("edit_breed");
 
-app.delete("/delete_breed");
 
-app.post("/delete_review");
-app.delete("/delete_user");
 
 
 //port setting
