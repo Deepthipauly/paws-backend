@@ -80,6 +80,7 @@ const login = async (loginData) => {
   return {
     token,
     userId: user._id,
+    accountType:user.accountType,
     username: user.username,
   };
 };

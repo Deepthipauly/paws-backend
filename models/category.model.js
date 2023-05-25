@@ -12,7 +12,7 @@ const CATEGORY_TYPE = {
   HAMSTERS: "HAMSTERS",
 };
 
-const breedImageSchema = new Schema({
+const categoryImageSchema = new Schema({
   type: String,
   required: true,
 });
@@ -38,7 +38,7 @@ const categorySchema = new Schema({
     type: String,
     required: true,
   },
-  breedImages: [breedImageSchema],
+  categoryImages: [categoryImageSchema],
 });
 
 module.exports = {
