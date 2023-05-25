@@ -1,13 +1,7 @@
-
 const mongoose = require("mongoose");
 
-const {CategoryModel,CATEGORY_TYPE} = require("../models/category.model");
+const { CategoryModel } = require("../models/category.model");
 
-const viewAllCategory = async()=>{
+const viewAllCategory = async () => CategoryModel.find({});
 
-
-
-    
-}
-
-
+module.exports = { viewAllCategory };

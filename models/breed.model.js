@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+require("../models/category.model")
 
 
 const BREED_STATUS = {
@@ -33,7 +34,8 @@ const breedSchema = new Schema({
     type: String,
     default: BREED_STATUS.ACTIVE,
     enum: Object.values(BREED_STATUS)
-  }
+  },
+
 });
 
 module.exports = {

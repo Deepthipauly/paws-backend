@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+require("./user.model");
+require("./breed.model");
 
 const REVIEW_STATUS = {
     ACTIVE: "ACTIVE",
@@ -22,7 +24,11 @@ const reviewSchema= new Schema({
         ref: "breed",
         required: true,
       },
-      
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        required: true,
+      },
       status: {
         type: String,
         default: REVIEW_STATUS.ACTIVE,

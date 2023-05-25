@@ -6,9 +6,7 @@ const {
   deletedReviews,
 } = require("../service/admin.service");
 
-// change to addBreedAdminController
-// change register-> registerBreed
-// import respective service
+
 
 const addBreedAdminController = async (req, res) => {
   console.log("START: addBreedAdminController");
