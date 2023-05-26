@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { ReviewModel, REVIEW_STATUS } = require("../models/review.model");
 
-const viewAllReviews = async (breedId) => {
+const viewAllReviews = async ({breedId}) => {
   if (!breedId) throw new Error("breedId is required");
 
   const viewBreedReviews = await ReviewModel.find({

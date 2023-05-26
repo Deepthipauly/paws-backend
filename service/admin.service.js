@@ -50,19 +50,18 @@ const editBreed = async (breedData) => {
   return editedBreedData;
 };
 
-const deleteBreed = async (breedId) => {
+const deleteBreed = async ({breedId}) => {
   if (!breedId) throw new Error("breed id is required");
   const deletedBreedData = await BreedModel.findByIdAndUpdate(
     breedId,
     { status: BREED_STATUS.DELETED },
     { new: true }
   );
-  if (deletedBreedData.status !== BREED_STATUS.DELETED)
-    throw new Error("breed is not deleted");
+  if (deletedBreedData.status !== BREED_STATUS.DELETED) throw new Error("breed is not deleted");
   return deletedBreedData;
 };
 
-const deletedUser = async (userId) => {
+const deletedUser = async ({userId}) => {
   if (!userId) throw new Error("userId is required");
 
   const deletedUserData = await UserModel.findByIdAndUpdate(
@@ -79,7 +78,7 @@ const deletedUser = async (userId) => {
 
 
 
-const deletedReviews = async (reviewId) => {
+const deletedReviews = async ({reviewId}) => {
 
   if(!reviewId) throw new Error ("reviewId is required")
 

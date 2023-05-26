@@ -14,7 +14,6 @@ const CATEGORY_TYPE = {
 
 const categoryImageSchema = new Schema({
   type: String,
-  required: true,
 });
 
 const categorySchema = new Schema({

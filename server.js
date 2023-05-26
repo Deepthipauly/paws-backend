@@ -1,50 +1,62 @@
-const express =require('express');
-const mongoose = require('mongoose');
-const cors= require ('cors');
-require('dotenv').config();
+// package imports
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
 
+require("dotenv").config();
 
+// router imports
 const authRouter = require("./routes/auth.routes");
-const adminRouter= require("./routes/admin.routes");
-
+const adminRouter = require("./routes/admin.routes");
+const breedRouter = require("./routes/breed.routes");
+const categoryRouter = require("./routes/category.routes");
+const reviewRouter = require("./routes/review.routes");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// admin route
+process.on("uncaughtException", (err) => {
+  console.log("uncaughtException");
+  console.log(err, err.message, err.stack);
+  console.log("Server shutting down");
+  process.exit(1);
+});
 
-app.use("/auth",authRouter);
+//auth Route
+app.use("/auth", authRouter);
 
-app.use("/admin",adminRouter);
+//admin Route
+app.use("/admin", adminRouter);
 
-app.get("/view_category");
+//breed Route
+app.use("/breed", breedRouter);
 
-app.get("/view_breed");
+//category Route
+app.use("/category", categoryRouter);
 
-app.post("/add_reviews");
-
-app.get("view_reviews");
-
-
-
-
-
+//review Route
+app.use("/review", reviewRouter);
 
 //port setting
-
 const server = app.listen(process.env.PORT, () => {
-    console.log("server started at port 3000");
-    mongoose.connect(process.env.DB_URL, {
+  console.log(`server started at port ${process.env.PORT}`);
+  mongoose
+    .connect(process.env.DB_URL, {
       useNewUrlParser: true,
+    })
+    .then(() => {
+      console.log("db connected");
+    })
+    .catch((e) => {
+      console.log("error in connection", e);
+      process.exit(1);
     });
-  });
+});
 
-
-process.on("unhandledRejection",(err)=>{
-    console.log("unhandledRejection");
-    console.log(err,err.message,err.stack);
-    console.log("Server shutting down");
-    process.exit(1);
-  });
-  
+process.on("unhandledRejection", (err) => {
+  console.log("unhandledRejection");
+  console.log(err, err.message, err.stack);
+  console.log("Server shutting down");
+  process.exit(1);
+});

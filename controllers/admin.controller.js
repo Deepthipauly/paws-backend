@@ -40,7 +40,7 @@ const deleteBreedAdminController = async (req, res) => {
   console.log("START: deleteBreedAdminController");
 
   try {
-    const deletedBreed = await deleteBreed(req.body);
+    const deletedBreed = await deleteBreed(req.params);
     return res.status(201).json({
       data: deletedBreed,
       message: "breed deleted",
@@ -54,7 +54,7 @@ const deleteUserAdminController = async (req, res) => {
   console.log("START: deleteUserAdminController");
 
   try {
-    const deleteUser = await deletedUser(req.body);
+    const deleteUser = await deletedUser(req.params);
     return res.status(201).json({
       data: deleteUser,
       message: "user deleted",
@@ -68,7 +68,7 @@ const deleteReviewAdminController = async (req, res) => {
   console.log("START: deleteReviewAdminController");
 
   try {
-    const deleteReview = await deletedReviews(req.body);
+    const deleteReview = await deletedReviews(req.params);
     return res.status(201).json({
       data: deleteReview,
       message: "review deleted",

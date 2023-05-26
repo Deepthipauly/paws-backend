@@ -43,6 +43,7 @@ const login = async (loginData) => {
   const { username, password } = loginData;
   if (!username) throw Error("username is required");
   if (!isUsername(username)) throw Error("invalid username");
+  if (!password) throw Error("password is required");
 
   // check is user present
 
@@ -50,9 +51,6 @@ const login = async (loginData) => {
   if (!user) throw new Error("user not registered");
 
   // verifying password
-
-  if (!password) throw Error("password is required");
-
   const isPasswordVerified = await bcrypt.compare(password, user.password);
   if (!isPasswordVerified) throw new Error("incorrect password");
 
@@ -75,7 +73,6 @@ const login = async (loginData) => {
 
     { upsert: true, new: true, setDefaultsOnInsert: true }
   );
-
   console.log("storedTokenDetails", storedTokenDetails);
   return {
     token,
@@ -90,7 +87,7 @@ const logout = async (userId) => {
     user: new mongoose.Types.ObjectId(userId),
     status: TOKEN_STATUS.ACTIVE,
   });
-
+  if (!isTokenExist) throw new Error("Jwt Token Expired.Pls login now");
   const storedTokenDetails = await TokenModel.findOneAndUpdate(
     { user: new mongoose.Types.ObjectId(userId) },
     {
@@ -100,10 +97,7 @@ const logout = async (userId) => {
     { upsert: true, new: true, setDefaultsOnInsert: true }
   );
 
-  if (!isTokenExist) throw new Error("Jwt Token Expired.Pls login now");
-
   console.log("storedTokenDetails", storedTokenDetails);
-  return true;
 };
 
 module.exports = { register, login, logout };

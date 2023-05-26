@@ -18,16 +18,16 @@ router.route("/edit_breed").patch(adminController.editBreedAdminController);
 
 //delete breed
 
-router.route("/delete_breed").delete(adminController.deleteBreedAdminController);
+router.route("/delete_breed/:breedId").delete(adminController.deleteBreedAdminController);
 
 // delete user
 
-router.route("/delete_user").delete(adminController.deleteUserAdminController);
+router.route("/delete_user/:userId").delete(adminController.deleteUserAdminController);
 
 // delete review
 
 router
-  .route("/delete_reviews")
+  .route("/delete_review/:reviewId")
   .delete(adminController.deleteReviewAdminController);
 
 module.exports = router;

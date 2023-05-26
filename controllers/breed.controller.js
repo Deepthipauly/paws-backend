@@ -9,7 +9,7 @@ const viewBreedController = async (req, res) => {
   console.log("START: viewBreedController");
 
   try {
-    const viewBreedData = await viewBreed(req.body);
+    const viewBreedData = await viewBreed(req.params);
     return res.status(201).json({
       data: viewBreedData,
       message: "breed data is displayed",
@@ -23,7 +23,7 @@ const viewAllBreedByCategoryController = async (req, res) => {
   console.log("START: viewAllBreedByCategoryController");
 
   try {
-    const viewAllBreedData = await viewAllBreedByCategory(req.body);
+    const viewAllBreedData = await viewAllBreedByCategory(req.params);
     return res.status(201).json({
       data: viewAllBreedData,
       message: "All breed datas are displayed",

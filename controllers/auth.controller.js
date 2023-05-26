@@ -15,11 +15,10 @@ const registerController = async (req, res) => {
 
 const loginController = async (req, res) => {
   console.log("START : loginController");
-
   try {
     const loginData = await login(req.body);
     return res
-      .status(201)
+      .status(200)
       .json({ data: loginData, message: "Login successfully" });
   } catch (e) {
     return res.status(400).json({ error: e.message || "something went wrong" });
@@ -30,7 +29,7 @@ const logoutController = async (req, res) => {
   console.log("START:logoutController");
   try {
     await logout(req.userId);
-    return res.status(201).json({ data: [], message: "Logout successfully" });
+    return res.status(200).json({ data: [], message: "Logout successfully" });
   } catch (e) {
     return res.status(400).json({ error: e.message || "something went wrong" });
   }

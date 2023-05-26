@@ -5,7 +5,7 @@ const viewAllReviewsController = async (req, res) => {
     console.log("START: viewAllReviewsController");
   
     try {
-      const viewAllReviewData = await viewAllReviews(req.body);
+      const viewAllReviewData = await viewAllReviews(req.params);
       return res.status(201).json({
         data: viewAllReviewData,
         message: "All Reviews are displayed",

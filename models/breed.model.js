@@ -10,7 +10,6 @@ const BREED_STATUS = {
 
 const breedImageSchema = new Schema({
   type: String,
-  required: true,
 });
 
 const breedSchema = new Schema({
