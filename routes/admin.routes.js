@@ -9,6 +9,11 @@ const { verifyToken, verifyAdmin } = require("../middleware/token");
 
 router.use(verifyToken,verifyAdmin);
 
+
+//add category
+router.route("/add_category").post(adminController.addCategoryAdminController);
+
+
 // add breed
 router.route("/add_breed").post(adminController.addBreedAdminController);
 

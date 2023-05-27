@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const { TokenModel, TOKEN_STATUS } = require("../models/token.model");
-const { UserModel, ACCOUNT_TYPE } = require("../models/user.model");
+const { UserModel, ACCOUNT_TYPE,USER_STATUS } = require("../models/user.model");
 
 const verifyToken = async (req, res, next) => {
   try {
@@ -17,8 +17,9 @@ const verifyToken = async (req, res, next) => {
       token,
     });
     if (!isTokenExist) throw new Error("Jwt Token Expired.Pls login now");
-    const userDetails = await UserModel.findById(userId, { accountType: 1 });
-
+    const userDetails = await UserModel.findById(userId, { accountType: 1,status : 1 });
+    if(userDetails.status !== USER_STATUS.ACTIVE) throw new Error("User not find!!");
+    req.accountType = userDetails.accountType;
     next();
   } catch (e) {
     console.log("error in verify token", e);
@@ -28,14 +29,8 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-const verifyAdmin = async (req, res, next) => {
-  try {
-    if (!req.userId) throw new Error("User is not an admin");
-    const userDetails = await UserModel.findById(req.userId, {
-      accountType: 1,
-    });
-    if (!userDetails) throw new Error("userdetails is not available");
-    req.accountType = userDetails.accountType;
+const verifyAdmin = (req, res, next) => {
+  try { 
     if (req.accountType !== ACCOUNT_TYPE.ADMIN)
     throw new Error("User is not an admin");
     next();

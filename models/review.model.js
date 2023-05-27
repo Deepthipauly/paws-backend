@@ -11,10 +11,6 @@ const REVIEW_STATUS = {
 
 const reviewSchema= new Schema({
 
-    name: {
-        type: String,
-        required: true,
-      },
       reviews: {
         type: String,
         required: true,
@@ -36,7 +32,13 @@ const reviewSchema= new Schema({
       }
 
 
-});
+},
+{
+  timestamps: true,
+}
+
+
+);
 
 module.exports = {
     ReviewModel: mongoose.model("review", reviewSchema),REVIEW_STATUS

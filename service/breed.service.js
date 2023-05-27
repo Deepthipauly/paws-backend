@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const { BreedModel, BREED_STATUS } = require("../models/breed.model");
-const { CategoryModel, CATEGORY_TYPE } = require("../models/category.model");
+// const { CategoryModel, CATEGORY_TYPE } = require("../models/category.model");
 
 const viewBreed = async ({breedId}) => {
   if (!breedId) throw new Error("breedId is required");

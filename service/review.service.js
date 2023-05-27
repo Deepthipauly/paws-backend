@@ -5,17 +5,21 @@ const viewAllReviews = async ({breedId}) => {
   if (!breedId) throw new Error("breedId is required");
 
   const viewBreedReviews = await ReviewModel.find({
-    _id: new mongoose.Types.ObjectId(breedId),
+    breedId: new mongoose.Types.ObjectId(breedId),
     status: REVIEW_STATUS.ACTIVE,
-  });
+  }).populate([
+    { path: "breedId", select: "name description" },
+    { path: "user", select: "username" },
+  ]);
+
+
 
   return viewBreedReviews;
 };
 
-const addNewBreedReview = async ({ userId, breedId, name, reviews }) => {
+const addNewBreedReview = async ({ userId, breedId, reviews }) => {
   if (!userId) throw new Error("userId is required");
   const newBreedReview = await ReviewModel.create({
-    name,
     reviews,
     breedId: new mongoose.Types.ObjectId(breedId),
     user: new mongoose.Types.ObjectId(userId),

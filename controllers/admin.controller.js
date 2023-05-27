@@ -1,4 +1,5 @@
 const {
+  addCategory,
   addBreed,
   editBreed,
   deleteBreed,
@@ -6,7 +7,19 @@ const {
   deletedReviews,
 } = require("../service/admin.service");
 
+const addCategoryAdminController = async (req, res) => {
+  console.log("START:addCategoryAdminController");
 
+  try {
+    const addedCategory = await addCategory(req.body);
+    return res.status(201).json({
+      data: addedCategory,
+      message: "new category added",
+    });
+  } catch (e) {
+    return res.status(400).json({ error: e.message || "something went wrong" });
+  }
+};
 
 const addBreedAdminController = async (req, res) => {
   console.log("START: addBreedAdminController");
@@ -79,6 +92,7 @@ const deleteReviewAdminController = async (req, res) => {
 };
 
 module.exports = {
+  addCategoryAdminController,
   addBreedAdminController,
   editBreedAdminController,
   deleteBreedAdminController,

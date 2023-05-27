@@ -12,10 +12,6 @@ const CATEGORY_TYPE = {
   HAMSTERS: "HAMSTERS",
 };
 
-const categoryImageSchema = new Schema({
-  type: String,
-});
-
 const categorySchema = new Schema({
   name: {
     type: String,
@@ -37,8 +33,12 @@ const categorySchema = new Schema({
     type: String,
     required: true,
   },
-  categoryImages: [categoryImageSchema],
-});
+  categoryImages: [],
+},
+{
+  timestamps: true,
+}
+);
 
 module.exports = {
   CategoryModel: mongoose.model("category", categorySchema),

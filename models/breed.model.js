@@ -8,9 +8,7 @@ const BREED_STATUS = {
   DELETED: "DELETED",
 };
 
-const breedImageSchema = new Schema({
-  type: String,
-});
+
 
 const breedSchema = new Schema({
   name: {
@@ -26,16 +24,26 @@ const breedSchema = new Schema({
     ref: "category",
     required: true,
   },
+  image: {
+    type: String,
+    required: true,
+  },
   
-  breedImages: [breedImageSchema],
+  breedImages: [],
 
   status: {
     type: String,
     default: BREED_STATUS.ACTIVE,
     enum: Object.values(BREED_STATUS)
   },
+  
+},
+{
+  timestamps: true,
+}
 
-});
+
+);
 
 module.exports = {
   BreedModel: mongoose.model("breed", breedSchema),BREED_STATUS
