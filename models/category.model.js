@@ -2,15 +2,6 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const CATEGORY_TYPE = {
-  DOG: "DOG",
-  CAT: "CAT",
-  BIRDS: "BIRDS",
-  FISH: "FISH",
-  RABBIT: "RABBIT",
-  FERRETS: "FERRETS",
-  HAMSTERS: "HAMSTERS",
-};
 
 const categorySchema = new Schema({
   name: {
@@ -21,7 +12,6 @@ const categorySchema = new Schema({
   categoryType: {
     type: String,
     required: true,
-    enum: Object.values(CATEGORY_TYPE),
   },
 
   description: {
@@ -41,6 +31,5 @@ const categorySchema = new Schema({
 );
 
 module.exports = {
-  CategoryModel: mongoose.model("category", categorySchema),
-  CATEGORY_TYPE,
+  CategoryModel: mongoose.model("category", categorySchema)
 };

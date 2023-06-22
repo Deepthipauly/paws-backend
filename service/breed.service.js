@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const { BreedModel, BREED_STATUS } = require("../models/breed.model");
-// const { CategoryModel, CATEGORY_TYPE } = require("../models/category.model");
 
 const viewBreed = async ({breedId}) => {
   if (!breedId) throw new Error("breedId is required");
@@ -14,11 +13,13 @@ const viewBreed = async ({breedId}) => {
 
 const viewAllBreedByCategory = async ({categoryId}) => {
   if (!categoryId) throw new Error("categoryId is required");
-
+  
   const viewAllBreeds = await BreedModel.find({
     categoryId: new mongoose.Types.ObjectId(categoryId),
     status: BREED_STATUS.ACTIVE,
-  });
+  }).populate([
+    { path: "categoryId", select: "name description image" },
+  ]);
 
   if (!viewAllBreeds) throw new Error("category could not find");
 

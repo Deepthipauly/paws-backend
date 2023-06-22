@@ -17,7 +17,7 @@ const viewAllReviews = async ({breedId}) => {
   return viewBreedReviews;
 };
 
-const addNewBreedReview = async ({ userId, breedId, reviews }) => {
+const addNewBreedReview = async ({ breedId, reviews },userId) => {
   if (!userId) throw new Error("userId is required");
   const newBreedReview = await ReviewModel.create({
     reviews,

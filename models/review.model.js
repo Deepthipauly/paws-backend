@@ -30,8 +30,6 @@ const reviewSchema= new Schema({
         default: REVIEW_STATUS.ACTIVE,
         enum: Object.values(REVIEW_STATUS)
       }
-
-
 },
 {
   timestamps: true,

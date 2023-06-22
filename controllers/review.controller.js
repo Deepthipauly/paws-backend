@@ -17,9 +17,8 @@ const viewAllReviewsController = async (req, res) => {
 
   const addNewBreedReviewController = async (req, res) => {
     console.log("START: addNewBreedReviewController");
-  
     try {
-      const addNewBreedReviewData = await addNewBreedReview(req.body);
+      const addNewBreedReviewData = await addNewBreedReview(req.body,req.userId);
       return res.status(201).json({
         data: addNewBreedReviewData,
         message: "review is added",
